@@ -1,0 +1,56 @@
+   
+html{
+    /* cursor: url('/resources/aim.png'), help; */
+    /* cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/heart.png"), auto; */
+}
+
+/* html:hover{
+    cursor: url('resources/aim.png'),url('aim.cur') 15 15,default;
+} */
+    
+
+
+.body_{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin:0;
+    padding:0;
+  
+    /* cursor: url('file:///home/urszula/html/WDAI/game/resources/aim.png'), help; */
+
+    /* background-color: red; */
+}
+
+.board{
+    margin:0;
+    padding:0;
+    position: absolute;
+    align-self: center;
+    width:100%;    
+}
+#board_img{
+    position: absolute;
+    align-self: center;
+    width:100%;
+
+
+}
+
+#test{
+    position: absolute;
+    height:1000px;
+    width:1000px;
+    /* z-index: 10000; */
+}
+
+#cursor{
+    width: 30px;
+    height: 30px;
+    background-color:rgba(250, 128, 114, 0.774);
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid #fa8072;
+    transform: translate(-50%,-50%);
+}
