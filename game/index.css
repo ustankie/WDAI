@@ -1,7 +1,7 @@
    
 html{
-    /* cursor: url('/resources/aim.png'), help; */
-    /* cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/heart.png"), auto; */
+    height:100%;
+    cursor: url(./resources/aim1.png) 50 50, default;
 }
 
 /* html:hover{
@@ -17,6 +17,12 @@ html{
     align-items: center;
     margin:0;
     padding:0;
+    height:100vh;
+    background-image:url(resources/board-bg.jpg);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
   
     /* cursor: url('file:///home/urszula/html/WDAI/game/resources/aim.png'), help; */
 
@@ -26,16 +32,56 @@ html{
 .board{
     margin:0;
     padding:0;
-    position: absolute;
+    /* position: absolute; */
+    display: flex;
     align-self: center;
+    align-items: center;
+    justify-content: center;
+    height:100vw;
     width:100%;    
+
+
+
+
 }
-#board_img{
+
+#hearts{
+    top:50px;
+    left:50px;
+    position: fixed;
+    display: flex;
+    justify-content:left;
+    align-items: left;
+}
+
+.heart{
+    width:auto;
+    height:80px;
+}
+
+#btn{
+    align-self: center;
+    cursor: url(./resources/aim1.png) 50 50, default;
+}
+/* #board_img{
     position: absolute;
     align-self: center;
     width:100%;
 
 
+} */
+
+#point_counter a{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    top:50px;
+    right:50px;
+    position: fixed;
+    color: white;
+    font-size:70px;
+    display: flex;
+    justify-content:right;
+    align-items: right;
 }
 
 #test{
@@ -54,3 +100,41 @@ html{
     border: 2px solid #fa8072;
     transform: translate(-50%,-50%);
 }
+
+.move{
+    bottom: 15%;
+    position: absolute;
+    -webkit-animation: linear 1;
+    -webkit-animation-name: moveLeft;
+    -webkit-animation-duration: 20s;
+}
+@keyframes moveLeft {
+    0%{
+        left:100%;
+    }
+    100%{
+        left:0;
+        webkit-transform: scaleX(-1);
+    }
+  }
+
+.zombies {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    height:312px;
+    width: 200px;
+    background-image: url("resources/walkingdead.png"); 
+    background-size: cover;
+    animation: animate 2s steps(10) infinite ; 
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+}
+@keyframes animate {
+  from {background-position: 0px;}
+  to {background-position: -2000px;}
+}
+
+
+
+
