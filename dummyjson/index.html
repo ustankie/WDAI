@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="index.js" defer></script> 
+    <title>Product List</title>
+</head>
+<body>
+    <header>
+        <h1>Products</h1>   
+    </header>
+
+    <div>
+        <a>Sort</a>
+        <button onclick="sortData('asc')">asc</button>
+        <button onclick="sortData('desc')">desc</button>
+        <button onclick="clearSort()">clear</button>
+        <label for="filter" >Filter data: </label>
+        <label for="includeDesc">include description</label>
+        <input type="checkbox" id="includeDesc" value="include description">
+        <input type="text" id="filter">
+        <input type="submit" id="submit" value="Filter">
+        <button onclick="clearFilter()">clear</button>
+    </div>
+
+    <div>
+        <p>
+            Items displayed:
+            <a id="itemsDisplayed"></a>
+        </p>
+    </div>
+    
+    <section>
+        <ul id="data"></ul>
+    </section>
+
+    <!-- <table>
+        <thead>
+            <tr>
+                <th>id</th>
+            </tr>
+        </thead>
+    </table> -->
+    <script>
+        
+    </script>
+
+</body>
+</html>
