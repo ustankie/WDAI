@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script> 
+    <title>Zombie game</title>
+    <base href="file:///home/urszula/html/WDAI/game/">
+
+</head>
+<body id="body_">
+
+    <!-- <div id="cursor"></div> -->
+    <div class="board">
+        <div id="hearts">
+            <img class="heart" id="heart1" src="./resources/full_heart.png" alt="">
+            <img class="heart" id="heart2" src="./resources/full_heart.png" alt="">
+            <img class="heart" id="heart3" src="./resources/full_heart.png" alt="">
+        </div>
+
+        <div id="point_counter">
+            <a id="points">00030</a>
+        </div>
+        <div id="shoot">
+            <a >You can't shoot, score below 0!</a>
+        </div>
+        
+        <div id="field">
+            <!-- <div class="move"> 
+                <div class="zombies" id="zombie2" onclick="setPoints(30)"></div>
+            </div> -->
+        </div>
+
+        <div id="game_over">
+            <a id="over">Game over</a>
+            <div id="score">
+                <a>Your score: </a>
+                <a id="score_num"></a>
+            </div>
+            <button onclick="location.reload()">Play again</button>
+        </div>
+            
+        
+        <!-- <img class="zombies" src="resources/walkingdead.png" alt="" > -->
+        <!-- <img id="board_img" src="./resources/board-bg.jpg" alt="board"> -->
+        <!-- <img id="test" src="./resources/aim.png" alt=""> -->
+        <!-- <button id="btn" onclick="hello()">a</button> -->
+    </div>
+    
+    
+</body>
+</html>

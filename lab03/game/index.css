@@ -1,0 +1,187 @@
+   
+html{
+    height:100%;
+    cursor: url(./resources/aim1.png) 50 50, default;
+    overflow: hidden;
+}
+
+/* html:hover{
+    cursor: url('resources/aim.png'),url('aim.cur') 15 15,default;
+} */
+    
+
+
+#body_{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin:0;
+    padding:0;
+    height:100vh;
+    width:100%;
+    background-image:url(resources/board-bg.jpg);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+  
+    /* cursor: url('file:///home/urszula/html/WDAI/game/resources/aim.png'), help; */
+
+    /* background-color: red; */
+}
+
+.board{
+    margin:0;
+    padding:0;
+    /* position: absolute; */
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    height:100vw;
+    width:100%;    
+
+
+
+
+}
+
+#shoot{
+    background-color:purple;
+    font-family: Arial, Helvetica, sans-serif;
+    visibility: hidden;
+    color:white;
+    font-size: 50px;
+    font-weight:bold;
+    border-radius: 20px;
+    padding:20px;
+    border:solid black;
+    z-index: 100;
+}
+
+#hearts{
+    top:50px;
+    left:50px;
+    position: fixed;
+    display: flex;
+    justify-content:left;
+    align-items: left;
+}
+
+.heart{
+    width:auto;
+    height:80px;
+}
+
+#btn{
+    align-self: center;
+    cursor: url(./resources/aim1.png) 50 50, default;
+}
+/* #board_img{
+    position: absolute;
+    align-self: center;
+    width:100%;
+
+
+} */
+
+#point_counter a{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    top:50px;
+    right:50px;
+    position: fixed;
+    color: white;
+    font-size:70px;
+    display: flex;
+    justify-content:right;
+    align-items: right;
+}
+
+#test{
+    position: absolute;
+    height:1000px;
+    width:1000px;
+    /* z-index: 10000; */
+}
+
+
+
+.move{
+    bottom: 200px;
+    position: absolute;
+    -webkit-animation: linear 1;
+    -webkit-animation-name: moveLeft;
+    -webkit-animation-duration: 20s;
+}
+@keyframes moveLeft {
+    0%{
+        left:100%;
+    }
+    100%{
+        left:0;
+        webkit-transform: scaleX(-1);
+    }
+  }
+
+.zombies {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    height:312px;
+    width: 200px;
+    background-image: url("resources/walkingdead.png"); 
+    background-size: cover;
+    animation: animate 2s steps(10) infinite ; 
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+}
+@keyframes animate {
+  from {background-position: 0px;}
+  to {background-position: -2000px;}
+}
+
+#game_over{
+    position:absolute;
+    /* top:50%;
+    left:50%; */
+    align-self: center;
+    width:auto;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(226, 168, 43);
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    padding:20px;
+    font-size: 50px;
+    border-radius: 20px;
+}
+
+#game_over button{
+    margin:10px;
+    padding:10px;
+    background-color: purple;
+    border-radius: 20px;
+    color:white;
+    font-size:25px;
+    border: solid black;
+}
+
+#game_over button:hover{
+
+    background-color: white;
+    color:black;
+
+}
+
+#over{
+    color:rgb(134, 14, 10);
+}
+
+
+
+
