@@ -82,7 +82,8 @@ function sleep(ms) {
 
 async function run(){
     var id=0;
-    const fullHeart="file:///home/urszula/html/WDAI/lab03/game/resources/full_heart.png";
+    const fullHeart=document.getElementById("heart4").src;
+    console.log(fullHeart);
 
     while(document.getElementById("heart1").src==fullHeart){
         var time=Math.random()*(2500-Math.min(id*80,1500))+100;
@@ -123,20 +124,20 @@ function heartLoss(){
     const heart2=document.getElementById("heart2");
     const heart3=document.getElementById("heart3");
 
-    const fullHeart="file:///home/urszula/html/WDAI/lab03/game/resources/full_heart.png";
+    const fullHeart=document.getElementById("heart4").src;
 
     if(heart3.src==fullHeart){
-        heart3.src="file:///home/urszula/html/WDAI/lab03/game/resources/empty_heart.png";
+        heart3.src=document.getElementById("heart5").src;
         return;
     }
 
     if(heart2.src==fullHeart){
-        heart2.src="file:///home/urszula/html/WDAI/lab03/game/resources/empty_heart.png";
+        heart2.src=document.getElementById("heart5").src;
         return;
     }
 
     if(heart1.src==fullHeart){
-        heart1.src="file:///home/urszula/html/WDAI/lab03/game/resources/empty_heart.png";
+        heart1.src=document.getElementById("heart5").src;
         const score_div=document.getElementById("score");
         const points=parseInt(document.getElementById("points").innerHTML);
         const score=document.getElementById("score_num");
