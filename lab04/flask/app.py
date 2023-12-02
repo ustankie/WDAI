@@ -39,6 +39,8 @@ def home():
 @app.route("/hello")
 def hello():
     name = request.args.get('name')
+    if name==None:
+        return jsonify({'content':"Hello World!"})
     match_ =re.match("[a-zA-Z]+", name)
     if match_:
         name = match_.group(0)
