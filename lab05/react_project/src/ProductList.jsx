@@ -22,30 +22,22 @@ export function ProductList(val){
     const [desc,setDesc]=useState('')
 
 
-    // const order=val.order;
-    // const filter=val.filter;
-    // const includeDesc=val.includeDesc;
-    // const updatedProduct=val.updatedProduct;
-    
-
-
     const updateState = (newValue) => {
         setProducts((prevState) => {
             const _ = require('lodash');
           if (_.isEqual(newValue,prevState) ){
-            return prevState; // Update state only if they are different
+            return prevState;
           }
-          return newValue; // Return the current state unchanged
+          return newValue; 
         });
       };
     const updateState2 = (newValue) => {
     setDefaultProducts((prevState) => {
         const _ = require('lodash');
-        // Compare the new value with the current state value
         if (_.isEqual(newValue,prevState) ){
-        return prevState; // Update state only if they are different
+        return prevState; 
         }
-        return newValue; // Return the current state unchanged
+        return newValue; 
     });
     };
 
@@ -61,7 +53,6 @@ export function ProductList(val){
             });
             
             updateState(pr);
-            console.log(pr,products)
 
 
             let pr1=defaultProducts.map(product => {
@@ -71,9 +62,7 @@ export function ProductList(val){
                 }
                 return product;
             });
-            // console.log(pr1);
             updateState2(pr1);
-            // getData(order,filter,includeDesc);
             
     }
     
@@ -93,12 +82,7 @@ export function ProductList(val){
                 } else if (order === 'desc') {
                     pr=(pr.sort((a, b) => (a.title > b.title ? -1 : 1)));
                 }
-                // if(includeDesc){
-                //     pr=pr.filter(f=>(f.title.toLowerCase().includes(filter.toLowerCase())|| f.description.toLowerCase().includes(filter.toLowerCase()) || filter ===''));
-                // }else{
-                //     pr=pr.filter(f=>(f.title.toLowerCase().includes(filter.toLowerCase()) || filter ===''));
-                // }
-                
+ 
 
                     setProducts(pr);
                     console.log("set!!!!!")
@@ -111,7 +95,6 @@ export function ProductList(val){
 
     const getData=(order,filter,includeDesc)=>{
         let pr=products;
-        console.log("pe:", pr)
                 if (order === "asc") {
                     pr=(pr.sort((a, b) => (a.title > b.title ? 1 : -1)));
                 } else if (order === 'desc') {
@@ -124,25 +107,17 @@ export function ProductList(val){
                 }else{
                     pr=pr.filter(f=>(f.title.toLowerCase().includes(filter.toLowerCase()) || filter ===''));
                 }
-                console.log("upd")
                 updateState(pr)    
     }
 
-    
-    // useEffect(()=>{
-    //     if(updatedProduct===undefined){}else updateProducts(updatedProduct,products);
-    // },[updatedProduct,products])
+
 
     useEffect(()=>{
         fetchData(null,'',false);
         console.log('fetch');
     },[])
 
-    // useEffect(()=>{
-    //     console.log("befire",products)
-    //     getData(order,filter,includeDesc,products)
-    //     console.log('get');
-    // },[order,filter,includeDesc])
+
     
     const handleClickEdit = (prod) => {
         setEditVisibility(true);
@@ -154,10 +129,8 @@ export function ProductList(val){
 
     const handleClick = () => {
         let pr = { ...editProduct, title: title, description:desc };
-        // console.log(pr)
         updateProducts(pr);
         setEditVisibility(false);
-        console.log("update",products);
       };
     const handleClickCancel = () => {
 
@@ -172,7 +145,6 @@ export function ProductList(val){
         setDesc(e.target.value)
     }
     const sortData=(orderr)=>{
-        console.log(orderr)
         setSortOrder(orderr);
         getData(orderr,filter,includeDesc,products);
     }
