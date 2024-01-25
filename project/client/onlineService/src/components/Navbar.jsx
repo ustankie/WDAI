@@ -18,7 +18,6 @@
 
     const logoutUser = async (e) => {
       const { email, password } = data;
-      console.log('logging out');
 
       try {
         const response = await axios.post('/logout', { email, password });
@@ -51,6 +50,7 @@
     return (
       <nav>
         <Link to='/'>Home</Link>
+        <Link to='/dashboard'>Dashboard</Link>
         {!user ? (
           <div>
             <Link to='/register'>Register</Link>
