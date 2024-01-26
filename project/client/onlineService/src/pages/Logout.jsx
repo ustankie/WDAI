@@ -23,7 +23,7 @@ export default function LogoutUser(){
       } else {
         setData({ email: '', password: '' });
         toast.success('Logout successful');
-        navigate('/');
+        navigate('/dashboard');
       }
     } catch (error) {
       console.error(error);

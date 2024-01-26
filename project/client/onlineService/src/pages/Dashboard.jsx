@@ -30,7 +30,10 @@ export default function Dashboard() {
         ):        null
         }
         <button  onClick={()=>navigate('/all_texts')} >All texts</button>
-        <button  onClick={()=>navigate('/favourite_texts')} >Favourite texts</button>
+        {user ?
+          (<button  onClick={()=>navigate('/favourite_texts')} >Favourite texts</button>)
+          : null
+        }
 
     </div>
   )

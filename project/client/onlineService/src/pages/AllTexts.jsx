@@ -25,33 +25,30 @@ export default function AllTexts() {
             });
     }, [])
 
-    // useEffect(() => {
-
-    //     if (user && texts) {
-    //         console.log("fav: ",user)
-    //         texts.forEach((text) => {
-    //             const textId = text._id;
-    //             const isFavourite = user.favourites.includes(textId);
-    
-    //             const removeText = document.getElementById(`remove_${textId}`);
-    //             const addText = document.getElementById(`add_${textId}`);
-    
-    //             if (isFavourite) {
-    //                 removeText.style.display = 'block';
-    //                 addText.style.display = 'none';
-    //             } else {
-    //                 removeText.style.display = 'none';
-    //                 addText.style.display = 'block';
-    //             }
-    //         });
-    //     }
-    // }, [user, texts]);
-    
-
     useEffect(() => {
 
+        if (user && texts) {
+            console.log("fav: ",user)
+            texts.forEach((text) => {
+                const textId = text._id;
+                const isFavourite = user.favourites.includes(textId);
+    
+                const removeText = document.getElementById(`remove_${textId}`);
+                const addText = document.getElementById(`add_${textId}`);
+    
+                if (isFavourite && removeText) {
+                    removeText.style.display = 'block';
+                    addText.style.display = 'none';
+                } else if(removeText){
+                    removeText.style.display = 'none';
+                    addText.style.display = 'block';
+                }
+            });
+        }
+    }, [user, texts]);
+    
 
-    }, [favourite])
+
 
 
 
@@ -63,56 +60,58 @@ export default function AllTexts() {
           });
     }
                             
+function addToFavourites(textId) {
 
-//    function addToFavourites(textId){
+    if (user) {
 
-//         if(user){
-//             try{                console.log(user,user._id)
+      axios.post('/add_to_favourites', { user: user, textId: textId })
+        .then((data) => {
 
-//                 console.log("id: ",user._id)
-//                 try{
-//                     axios.post('/add_to_favourites', { user: user, textId: textId }).then((data)=>{
-//                         // setUser(data.data)
-//                         console.log("resadd: ",user)
-//                     })
-      
-//                 }catch(e){
-//                     console.log(e)
-//                 }
-                
+          setFavourite(true)
+          if (data.data != null) {
 
-//             }catch(err){
-//                 console.log(err)
-//             }
- 
-//         }
-//         const removeText=document.getElementById(`remove_${textId}`);
-//         const addText=document.getElementById(`add_${textId}`);
-//         removeText.style.display='block';
-//         addText.style.display='none';    
+            setUser(data.data);
+          }
+        })
+        .catch(error => {
+          console.error('Error updating user:', error);
+        });
+    }
+        const removeText=document.getElementById(`remove_${textId}`);
+        const addText=document.getElementById(`add_${textId}`);
+        removeText.style.display='block';
+        addText.style.display='none';  
+        setFavourite(1-favourite)
 
-//     setFavourite(1-favourite)}
+  }
 
-//     async function removeFromFavourites(textId){
+  function removeFromFavourites(textId) {
 
-//         if(user){
-//             try{
-//                 console.log(user)
-//                 console.log("id rem: ",user._id)
-//                 const res= await axios.post('/remove_from_favourites', { user: user, textId: textId })
-//                 // const done=await setUser(res.data);
-//                 console.log("res: ",user)
+    if (user) {
+      axios.post('/remove_from_favourites', { user: user, textId: textId })
+        .then((data) => {
+          setFavourite(false)
+          if (data.data != null) {
+            setUser(data.data);
+          }
 
-//             }catch(err){
-//                 console.log(err)
-//             }
-//         }
-//         const removeText=document.getElementById(`remove_${textId}`);
-//         const addText=document.getElementById(`add_${textId}`);
-//         removeText.style.display='none';
-//         addText.style.display='block';
-//         setFavourite(1-favourite)
-//     }
+
+
+
+        }).then(
+      )
+        .catch(error => {
+          console.error('Error updating user:', error);
+        });
+    }
+    const removeText=document.getElementById(`remove_${textId}`);
+    const addText=document.getElementById(`add_${textId}`);
+        removeText.style.display='none';
+        addText.style.display='block';
+        setFavourite(1-favourite)
+
+  }
+
 
   return (
     <div>
@@ -124,9 +123,15 @@ export default function AllTexts() {
                         <h3 onClick={() => displayText(text)} >{text.title}</h3>
                         <p>Author: {text.author_name} </p>
                         <p>Published on: {text.published}</p>
-                       
-                        {/* <button id={`remove_${text._id}`} onClick={() => removeFromFavourites(text._id)} >Remove from favourites</button>
-                        <button id={`add_${text._id}`} onClick={() => addToFavourites(text._id)} >Add to favourites</button>   */}
+                       {user ?(
+                        <div>
+                            <button id={`remove_${text._id}`} onClick={() => removeFromFavourites(text._id)} >Remove from favourites</button>
+                            <button id={`add_${text._id}`} onClick={() => addToFavourites(text._id)} >Add to favourites</button>
+                        </div>
+                        ):null
+
+                       }
+                        
                    </div>
                 ))}
 

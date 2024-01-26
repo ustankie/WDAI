@@ -53,11 +53,26 @@ const displayAllTexts = async (req, res) => {
                 error: 'Error loading texts'
             })
         }
-        // console.log(textCollection)
         res.json(textCollection);
     } catch (err) {
         console.log(err);
     }
+}
+
+const deleteText = async (req, res) =>{
+    const { textId } = req.body
+    try {
+        console.log(textId)
+        const textRemoved = await Text.deleteOne({_id: textId});
+
+        res.json(textRemoved);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+const modifyText=async(req,res)=>{
+
 }
 
 const addToFavourites = async (req, res) => {
@@ -71,15 +86,13 @@ const addToFavourites = async (req, res) => {
             return res.json(user)
         }else{
             user.favourites.push(textId)
-            // console.log(user.id)
 
             const updatedUser = await User.findOneAndUpdate(
                 { _id: user.id },
                 { $addToSet: { favourites: textId } },
                 { new: true }
             );
-            // console.log(user)
-            // console.log(updatedUser)
+
             return res.json(user)
         }
     } catch (error) {
@@ -95,14 +108,10 @@ const removeFromFavourites = async (req, res) => {
     try {
         
         if(!user.favourites.includes(textId)){
-            // console.log("not there")
             return res.json(user)
         }else{
-            // console.log("there")
-            // console.log(user.favourites)
+
             user.favourites=user.favourites.filter(text=>text!==textId);
-            // console.log(user.favourites)
-            // console.log(user.id)
 
             const updatedUser =await User.findOneAndUpdate(
                 { _id: user.id },
@@ -110,13 +119,6 @@ const removeFromFavourites = async (req, res) => {
                 {new:true}
             )
 
-            // console.log(updatedUser)
-            
-            // res.cookie('token', '', { expires: new Date(0) });
-            // jwt.sign({email: user.email,id: user._id,name: user.name, user_type: user.user_type,favourites: user.favourites},process.env.JWT_SECRET,{},(err,token)=>{
-            //     if(err) throw err;
-            //     res.cookie('token',token).json(user)
-            // })
             return res.json(user)
         }
     } catch (error) {
@@ -124,30 +126,7 @@ const removeFromFavourites = async (req, res) => {
         return res.json(user)
     }
 }
-            // jwt.sign({email: updUser.email,id: updUser._id,name: updUser.name, 
-            //     user_type: updUser.user_type,favourites: updUser.favourites},process.env.JWT_SECRET,{},(err,token)=>{
-            //     if(err) throw err;
-            //     res.cookie('token',token).json(updUser)
-            // })
-            // res.cookie('token',token).json(updUser)
 
-// const displayFavourites=async(req,res)=>{
-//     try {
-//         const favourites = req.query.favourites;
-
-//         const textCollection = await Text.find({ _id: { $in: favourites }});
-//         if (!textCollection) {
-//             return res.json({
-//                 error: 'Error loading texts'
-//             })
-//         }
-
-//         res.json(textCollection);
-//     } catch (err) {
-//         console.log(err);
-//     }
-
-// }
 const displayFavourites=async(req,res)=>{
     try {
         const favourites = req.query.favourites;
@@ -172,5 +151,7 @@ module.exports = {
     displayAllTexts,
     addToFavourites,
     removeFromFavourites,
-    displayFavourites
+    displayFavourites,
+    deleteText,
+    modifyText
 }

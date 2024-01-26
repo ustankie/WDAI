@@ -2,7 +2,7 @@ import { UserContext } from '../../context/userContext'
 import { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
+import { toast } from 'react-hot-toast'
 
 
 
@@ -10,15 +10,6 @@ export default function YourTexts() {
     const { user } = useContext(UserContext)
     const [texts, setTexts] = useState(null);
 
-    // if (user) {
-    //     axios.get('/your_texts')
-    //       .then(({ data }) => {
-    //         setTexts(data);
-    //       })
-    //       .catch(error => {
-    //         console.error('Error fetching texts:', error);
-    //       });
-    //   }
     useEffect(() => {
         if (user) {
             axios.get('/your_texts', { params: { userId: user.id } })
@@ -28,12 +19,8 @@ export default function YourTexts() {
                 .catch(error => {
                     console.error('Error fetching texts:', error);
                 });
-
-
         }
-
-
-    }, [user])
+    }, [user,texts])
     const navigate = useNavigate();
 
    function displayText (text) {
@@ -45,6 +32,40 @@ export default function YourTexts() {
             }
           });
     }
+
+    async function deleteText(textId){
+        try {
+            console.log(textId)
+            const { data } = await axios.post(
+                '/delete_text',{textId})
+
+            if (data.error) {
+                toast.error(data.error)
+            } else {
+                toast.success('Text deleted successfully')
+            }
+        } catch (error) {
+            console.log(error)
+        }   
+    }
+
+
+    async function modifyText(textId){
+        try {
+            console.log(textId)
+            const { data } = await axios.post(
+                '/modify_text',{textId})
+
+            if (data.error) {
+                toast.error(data.error)
+            } else {
+                toast.success('Text modified successfully')
+            }
+        } catch (error) {
+            console.log(error)
+        }   
+    }
+
     return (
         <div>
             <h1>Your texts</h1>
@@ -56,6 +77,8 @@ export default function YourTexts() {
                                 <h3 onClick={() => displayText(text)} >{text.title}</h3>
                                 <p>Author: {text.author_name} </p>
                                 <p>Published on: {text.published}</p>
+                                <button onClick={()=>deleteText(text._id)} >Delete</button>
+                                <button onClick={()=>modifyText(text._id)}>Modify</button>
                             </div>
                         ))}
 

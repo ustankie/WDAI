@@ -5,100 +5,77 @@ import { useContext, useState, useEffect } from 'react'
 
 
 export default function DisplayOneText() {
-    const { user, setUser } = useContext(UserContext)
-    const [isFavourite, setFavourite]=useState(false);
-    // useEffect(() => {
-    //     if (user) {
-    //         axios.get('/your_texts', { params: { userId: user.id } })
-    //             .then(({ data }) => {
-    //                 setTexts(data);
-    //             })
-    //             .catch(error => {
-    //                 console.error('Error fetching texts:', error);
-    //             });
+  const { user, setUser } = useContext(UserContext)
+  const [isFavourite, setFavourite] = useState(false);
 
+  const location = useLocation();
 
-    //     }
+  let text = location.state.text;
+  useEffect(() => {
 
-
-    // }, [user])
-    const location = useLocation();
-
-    let text = location.state.text;
-    useEffect(() => {
-      
-      if(user)
+    if (user)
       setFavourite(user.favourites.includes(text._id))
-    // console.log(isFavourite)
-    // console.log(text._id)
-    },[user])
-    
+
+  }, [user])
 
 
-    function addToFavourites(textId){
 
-      if(user){
-        // console.log(user)
+  function addToFavourites(textId) {
 
-          axios.post('/add_to_favourites', { user: user, textId: textId })
-          .then((data)=>{
-            // console.log("data: ",data.data)
-            // setUser(data.data);
-            setFavourite(true)
-            if(data.data!=null){
+    if (user) {
 
-              setUser(data.data);
-            }
-          }).then(
-            console.log("new user:",user)
-          )
-          .catch(error => {
-              console.error('Error updating user:', error);
-          });
-      }
-      
+      axios.post('/add_to_favourites', { user: user, textId: textId })
+        .then((data) => {
 
-  }
+          setFavourite(true)
+          if (data.data != null) {
 
-  function removeFromFavourites(textId){
-
-    if(user){
-      // console.log("user: ",user)
-        axios.post('/remove_from_favourites', { user: user, textId: textId })
-        .then((data)=>{
-          // console.log("data: ",data.data)
-          setFavourite(false)
-          if(data.data!=null){
             setUser(data.data);
           }
-          
-          // window.location.reload(false)
-          // console.log("dat:",data.data)
-
-            
-        }).then(
-          // console.log("new user:",user)
-        )
+        })
         .catch(error => {
-            console.error('Error updating user:', error);
+          console.error('Error updating user:', error);
         });
     }
 
-    
 
-}
+  }
+
+  function removeFromFavourites(textId) {
+
+    if (user) {
+      axios.post('/remove_from_favourites', { user: user, textId: textId })
+        .then((data) => {
+          setFavourite(false)
+          if (data.data != null) {
+            setUser(data.data);
+          }
+
+
+
+
+        }).then(
+      )
+        .catch(error => {
+          console.error('Error updating user:', error);
+        });
+    }
+
+
+
+  }
 
   return (
     <div>
-        <h1>{text.title}</h1>
-        <h3>Author: {text.author_name}</h3>
-        <p>Published on: {text.published}</p>
-        
-        {isFavourite ? (<button onClick={() => removeFromFavourites(text._id)} >Remove from favourites</button>):
-        (<button onClick={() => addToFavourites(text._id)} >Add to favourites</button>)}
+      <h1>{text.title}</h1>
+      <h3>Author: {text.author_name}</h3>
+      <p>Published on: {text.published}</p>
 
-        <p>{text.text}</p>
-        
+      {user ?(isFavourite ? (<button onClick={() => removeFromFavourites(text._id)} >Remove from favourites</button>) :
+        (<button onClick={() => addToFavourites(text._id)} >Add to favourites</button>)):null}
+
+      <p>{text.text}</p>
+
     </div>
   )
 }

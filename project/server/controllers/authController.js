@@ -91,10 +91,6 @@ const getProfile=(req,res)=>{
         res.json(null)
     }
 }
-const setUserProperties=(req,res)=>{
-    const user=req.query.user
-    console.log("set user")
-}
 
 module.exports = {
     test,
@@ -102,5 +98,4 @@ module.exports = {
     loginUser,
     getProfile,
     logoutUser,
-    setUserProperties
 }

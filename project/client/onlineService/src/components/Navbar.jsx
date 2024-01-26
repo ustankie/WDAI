@@ -36,7 +36,7 @@
         {
           setData({ email: '', password: '' });
           toast.success('Logout successful');
-          navigate('/');
+          navigate('/dashboard');
         }
         setUser(null)
       } catch (error) {
@@ -49,7 +49,7 @@
 
     return (
       <nav>
-        <Link to='/'>Home</Link>
+        {/* <Link to='/'>Home</Link> */}
         <Link to='/dashboard'>Dashboard</Link>
         {!user ? (
           <div>
