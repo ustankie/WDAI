@@ -3,42 +3,46 @@ import { UserContext } from '../../context/userContext'
 import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useLocation } from 'react-router-dom'
+
 export default function ModifyText() {
     const { user } = useContext(UserContext)
     const navigate = useNavigate()
+    const location = useLocation();
+    const initialText = location.state.text;
+    // console.log(initialText)
 
     const [data, setData] = useState({
-        title: '',
-        author_name: user.name,
-        author: user.id,
-        text: '',
-        published: new Date()
+        _id: initialText._id,
+        title: initialText.title,
+        author_name: initialText.author_name,
+        author: initialText.author,
+        text: initialText.text,
+        published: initialText.published,
+        edited: new Date()
     });
+    console.log(data)
 
-    const createText = async (e) => {
+    const saveText = async (e) => {
         e.preventDefault();
         setData((prevData) => ({
             ...prevData,
-            published: Date.now(),
+            edited: Date.now(),
         }));
 
-        const { title, author_name, author, text, published } = data
+        const {_id, title, author_name, author, text, published, edited } = data
 
-        console.log("creating text")
-        console.log(user.id)
-        console.log(data)
 
         try {
             const { data } = await axios.post(
-                '/create_text', {
-                title, author_name, author, text, published
+                '/modify_text', {
+                _id, title, author_name, author, text, published, edited
             })
             if (data.error) {
                 toast.error(data.error)
             } else {
                 setData({})
-                toast.success('Text created successfully')
+                toast.success('Text saved successfully')
                 navigate('/dashboard')
             }
         } catch (error) {
@@ -47,7 +51,7 @@ export default function ModifyText() {
     }
     return (
         <div>
-            <form onSubmit={createText}>
+            <form onSubmit={saveText}>
                 <label>Title</label>
                 <input type="text" placeholder='Enter title...' value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
                 <label>Text</label>

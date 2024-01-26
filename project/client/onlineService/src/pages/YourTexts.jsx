@@ -50,20 +50,12 @@ export default function YourTexts() {
     }
 
 
-    async function modifyText(textId){
-        try {
-            console.log(textId)
-            const { data } = await axios.post(
-                '/modify_text',{textId})
-
-            if (data.error) {
-                toast.error(data.error)
-            } else {
-                toast.success('Text modified successfully')
+    async function modifyText(text){
+        navigate('/modify_text',{
+            state: {
+              text: text,
             }
-        } catch (error) {
-            console.log(error)
-        }   
+          })
     }
 
     return (
@@ -78,7 +70,7 @@ export default function YourTexts() {
                                 <p>Author: {text.author_name} </p>
                                 <p>Published on: {text.published}</p>
                                 <button onClick={()=>deleteText(text._id)} >Delete</button>
-                                <button onClick={()=>modifyText(text._id)}>Modify</button>
+                                <button onClick={()=>modifyText(text)}>Modify</button>
                             </div>
                         ))}
 

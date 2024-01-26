@@ -10,8 +10,8 @@ export default function CreateText() {
 
     const [data, setData] = useState({
         title: '',
-        author_name: user.name,
-        author: user.id,
+        author_name: user ? user.name:null,
+        author: user ? user.id: null,
         text: '',
         published: new Date()
     });

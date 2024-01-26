@@ -15,6 +15,7 @@ import DisplayOneText from './pages/DisplayOneText'
 import AllTexts from './pages/AllTexts'
 import ViewUsers from './pages/ViewUsers'
 import FavouriteTexts from './pages/FavouriteTexts'
+import ModifyText from './pages/ModifyText'
 
 axios.defaults.baseURL = 'http://localhost:8000'
 axios.defaults.withCredentials = true
@@ -37,6 +38,7 @@ function App() {
         <Route path='/all_texts' element={<AllTexts />} />
         <Route path='/users' element={<ViewUsers />} />
         <Route path='/favourite_texts' element={<FavouriteTexts />} />
+        <Route path='/modify_text' element={<ModifyText />} />
 
       </Routes>
     </UserContextProvider>

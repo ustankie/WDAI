@@ -72,7 +72,27 @@ const deleteText = async (req, res) =>{
 }
 
 const modifyText=async(req,res)=>{
+    try {
+        const {_id, title, author_name, author, text, published, edited } = req.body
+        if (!text) {
+            return res.json({
+                error: 'Text content is required'
+            })
+        }
+        if (!title) {
+            return res.json({
+                error: 'title is required'
+            })
+        }
 
+        const textObject = await Text.findByIdAndUpdate(_id,{
+            title: title, text: text, edited: edited
+        })
+
+        return res.json(textObject)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const addToFavourites = async (req, res) => {
