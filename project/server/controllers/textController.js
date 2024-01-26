@@ -1,6 +1,8 @@
 
 const Text = require('../model/texts')
 const User = require('../model/user')
+const jwt =require('jsonwebtoken')
+
 
 const createText = async (req, res) => {
     try {
@@ -51,7 +53,7 @@ const displayAllTexts = async (req, res) => {
                 error: 'Error loading texts'
             })
         }
-
+        console.log(textCollection)
         res.json(textCollection);
     } catch (err) {
         console.log(err);
@@ -59,92 +61,78 @@ const displayAllTexts = async (req, res) => {
 }
 
 const addToFavourites = async (req, res) => {
+    const { user, textId } = req.body
+    if(!user){
+        return res.json(user)
+    }
     try {
-        const { user, textId } = req.body;
-
-        // const user = await User.findById(userId);
-        // console.log("upda: ",user,userId)
-
-        // if (!user) {
-        //     return res.json({
-        //         error: 'User not found ${userId}'
-        //     });
-        // }
-        console.log(user)
-        user.favourites.push(textId);
-        try{
-            const updatedUser = await user.save()
-            console.log("udpatedUser:",updatedUser)
-            res.json(updatedUser);
-        }catch(e){
-            res.json(user);
-            console.error('Error saving user:');
+        
+        if(user.favourites.includes(textId)){
+            return res.json(user)
+        }else{
+            const updatedUser = await User.findOneAndUpdate({_id: user.id},{$addToSet :
+                {favourites: textId}}, {new:true}
+            )
+            console.log(user)
+            console.log(updatedUser)
+            return res.json(updatedUser)
         }
-
-        // if (!user.favourites.includes(textId)) {
-        //     user.favourites.push(textId);
-
-        //     try {
-        //         const updatedUser = await user.save();
-        //         console.log("udpatedUser:",updatedUser)
-
-        //         res.json(updatedUser);
-        //     } catch (saveError) {
-        //         console.error('Error saving user:', saveError);
-        //         res.status(500).json({ error: 'Error saving user' });
-        //     }
-
-            
-        // } else {
-        //     res.json(user);
-        // }
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        console.log(error)
+        return res.json(user)
     }
 }
 const removeFromFavourites = async (req, res) => {
+    const { user, textId } = req.body
+    if(!user){
+        return res.json(user)
+    }
     try {
-        const { user, textId } = req.body;
-        console.log(user)
-        user.favourites = user.favourites.filter(fav => fav !== textId);
-        console.log(user.favourites)
-        try{
-            const updatedUser = await user.save()
-            console.log("udpatedUser:",updatedUser)
-            res.json(updatedUser);
-        }catch(e){
-            res.json(user);
-            console.error('Error saving user:');
+        
+        if(!user.favourites.includes(textId)){
+            console.log("not there")
+            return res.json(user)
+        }else{
+            console.log("there")
+            var updUser='';
+            const updatedUser = await User.updateOne({_id: user.id},{$pull :
+                {favourites: textId}}   ,{new:true}
+            )
+            
+            console.log(user)
+            console.log(updatedUser)
+            
+            console.log("upduser:",updUser)
+            jwt.sign({email: updUser.email,id: updUser._id,name: updUser.name, user_type: updUser.user_type,favourites: updUser.favourites},process.env.JWT_SECRET,{},(err,token)=>{
+                if(err) throw err;
+            res.cookie('token',token).json(updUser)
+            })
+            // res.cookie('token',token).json(updUser)
+            
+            return res.json(updatedUser)
         }
-        // const user = await User.findById(userId);
-        // console.log("upda: ",user)
+    } catch (error) {
+        console.log(error)
+        return res.json(user)
+    }
+}
 
-        // if (!user) {
-        //     return res.json({
-        //         error: 'User not found'
-        //     });
-        // }
+const displayFavourites=async(req,res)=>{
+    try {
+        const favourites = req.query.favourites;
 
-        // if (user.favourites.includes(textId)) {
-        //     user.favourites = user.favourites.filter(fav => fav.toString() !== textId);
-        //     console.log('user:', user);
-        //     try {
-        //         const updatedUser = await user.save();
-        //         console.log('updatedUser:', updatedUser);
-        //         res.json(updatedUser);
-        //         console.log("udpatedUser:",updatedUser)
+        const textCollection = await Text.find({ _id: { $in: favourites }});
+        if (!textCollection) {
+            return res.json({
+                error: 'Error loading texts'
+            })
+        }
 
-        //     } catch (saveError) {
-        //         console.error('Error saving user:', saveError);
-        //         res.status(500).json({ error: 'Error saving user' });
-        //     }
-
-        // } else {
-        //     res.json(user);
-        // }
+        res.json(textCollection);
     } catch (err) {
         console.log(err);
     }
+
 }
 
 module.exports = {
@@ -152,5 +140,6 @@ module.exports = {
     displayUserTexts,
     displayAllTexts,
     addToFavourites,
-    removeFromFavourites
+    removeFromFavourites,
+    displayFavourites
 }

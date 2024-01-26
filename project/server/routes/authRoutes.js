@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router()
 const cors = require('cors')
 const { test, registerUser,loginUser,getProfile, logoutUser } = require('../controllers/authController');
-const { createText, displayUserTexts, displayAllTexts, addToFavourites, removeFromFavourites }=require('../controllers/textController');
+const { createText, displayUserTexts, displayAllTexts, addToFavourites, removeFromFavourites, displayFavourites }=require('../controllers/textController');
 const { displayUsers, updateUsers }=require('../controllers/userController');
 
 router.use(
@@ -24,5 +24,6 @@ router.get('/users',displayUsers)
 router.post('/update_users',updateUsers)
 router.post('/add_to_favourites',addToFavourites)
 router.post('/remove_from_favourites',removeFromFavourites)
+router.get('/favourite_texts',displayFavourites)
 
 module.exports = router

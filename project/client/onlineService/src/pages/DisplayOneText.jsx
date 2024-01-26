@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { useLocation } from "react-router-dom";
-import { UserContext } from '../../context/userContext'
+import { UserContext, UserContextProvider } from '../../context/userContext'
 import { useContext, useState, useEffect } from 'react'
 
 
 export default function DisplayOneText() {
-    const { user, refreshUser } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
     const [isFavourite, setFavourite]=useState(false);
     // useEffect(() => {
     //     if (user) {
@@ -38,32 +38,46 @@ export default function DisplayOneText() {
     function addToFavourites(textId){
 
       if(user){
-          axios.post('/add_to_favourites', { userId: user.id, textId: textId })
+        console.log(user)
+
+          axios.post('/add_to_favourites', { user: user, textId: textId })
+          .then((data)=>{
+            console.log("data: ",data.data)
+            setUser(data.data);
+            setFavourite(true)
+          }).then(
+            console.log("new user:",user)
+          )
           .catch(error => {
               console.error('Error updating user:', error);
           });
       }
-      console.log(user)
-      setFavourite(true)
+      
 
   }
 
   function removeFromFavourites(textId){
 
     if(user){
-        axios.post('/remove_from_favourites', { userId: user.id, textId: textId })
+        axios.post('/remove_from_favourites', { user: user, textId: textId })
         .then((data)=>{
-          refreshUser;
-        })
+          console.log("data: ",data.data)
+          setFavourite(false)
+          window.location.reload(false)
+
+            
+        }).then(
+          console.log("new user:",user)
+        )
         .catch(error => {
             console.error('Error updating user:', error);
         });
     }
-    console.log(user)
 
-    setFavourite(false)
+    
 
 }
+
   return (
     <div>
         <h1>{text.title}</h1>
