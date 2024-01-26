@@ -70,12 +70,17 @@ const addToFavourites = async (req, res) => {
         if(user.favourites.includes(textId)){
             return res.json(user)
         }else{
-            const updatedUser = await User.findOneAndUpdate({_id: user.id},{$addToSet :
-                {favourites: textId}}, {new:true}
-            )
+            user.favourites.push(textId)
+            console.log(user.id)
+
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: user.id },
+                { $addToSet: { favourites: textId } },
+                { new: true }
+            );
             console.log(user)
             console.log(updatedUser)
-            return res.json(updatedUser)
+            return res.json(user)
         }
     } catch (error) {
         console.log(error)
@@ -94,28 +99,37 @@ const removeFromFavourites = async (req, res) => {
             return res.json(user)
         }else{
             console.log("there")
-            var updUser='';
-            const updatedUser = await User.updateOne({_id: user.id},{$pull :
-                {favourites: textId}}   ,{new:true}
+            console.log(user.favourites)
+            user.favourites=user.favourites.filter(text=>text!==textId);
+            console.log(user.favourites)
+            console.log(user.id)
+
+            const updatedUser =await User.findOneAndUpdate(
+                { _id: user.id },
+                {favourites: user.favourites},
+                {new:true}
             )
-            
-            console.log(user)
+
             console.log(updatedUser)
             
-            console.log("upduser:",updUser)
-            jwt.sign({email: updUser.email,id: updUser._id,name: updUser.name, user_type: updUser.user_type,favourites: updUser.favourites},process.env.JWT_SECRET,{},(err,token)=>{
-                if(err) throw err;
-            res.cookie('token',token).json(updUser)
-            })
-            // res.cookie('token',token).json(updUser)
-            
-            return res.json(updatedUser)
+            // res.cookie('token', '', { expires: new Date(0) });
+            // jwt.sign({email: user.email,id: user._id,name: user.name, user_type: user.user_type,favourites: user.favourites},process.env.JWT_SECRET,{},(err,token)=>{
+            //     if(err) throw err;
+            //     res.cookie('token',token).json(user)
+            // })
+            return res.json(user)
         }
     } catch (error) {
         console.log(error)
         return res.json(user)
     }
 }
+            // jwt.sign({email: updUser.email,id: updUser._id,name: updUser.name, 
+            //     user_type: updUser.user_type,favourites: updUser.favourites},process.env.JWT_SECRET,{},(err,token)=>{
+            //     if(err) throw err;
+            //     res.cookie('token',token).json(updUser)
+            // })
+            // res.cookie('token',token).json(updUser)
 
 const displayFavourites=async(req,res)=>{
     try {

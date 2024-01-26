@@ -43,8 +43,12 @@ export default function DisplayOneText() {
           axios.post('/add_to_favourites', { user: user, textId: textId })
           .then((data)=>{
             console.log("data: ",data.data)
-            setUser(data.data);
+            // setUser(data.data);
             setFavourite(true)
+            if(data.data!=null){
+
+              setUser(data.data);
+            }
           }).then(
             console.log("new user:",user)
           )
@@ -59,11 +63,17 @@ export default function DisplayOneText() {
   function removeFromFavourites(textId){
 
     if(user){
+      console.log("user: ",user)
         axios.post('/remove_from_favourites', { user: user, textId: textId })
         .then((data)=>{
           console.log("data: ",data.data)
           setFavourite(false)
-          window.location.reload(false)
+          if(data.data!=null){
+            setUser(data.data);
+          }
+          
+          // window.location.reload(false)
+          console.log("dat:",data.data)
 
             
         }).then(
