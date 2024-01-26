@@ -4,6 +4,9 @@ import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { Form,Button } from 'react-bootstrap';
+
+
 export default function CreateText() {
     const { user } = useContext(UserContext)
     const navigate = useNavigate()
@@ -47,13 +50,26 @@ export default function CreateText() {
     }
     return (
         <div>
-            <form onSubmit={createText}>
-                <label>Title</label>
+            {/* <form onSubmit={createText}> */}
+                <Form>
+                    <Form.Group className="mb-3" controlId="modifyForm.title">
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control type="text" placeholder="Enter title..."  
+                        value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
+                    </Form.Group>
+                    <Form.Group className="mb-4" controlId="modifyForm.text">
+                        <Form.Label>Text</Form.Label>
+                        <Form.Control as="textarea" rows={7} placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
+                    </Form.Group>
+                </Form>
+                {/* <label>Title</label>
                 <input type="text" placeholder='Enter title...' value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
                 <label>Text</label>
                 <input type="text" placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
-                <button type="submit">Save</button>
-            </form>
+                <button type="submit">Save</button> */}
+                <Button type="submit" onClick={createText} >Save</Button>
+
+            {/* </form> */}
         </div>
     )
 }

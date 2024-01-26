@@ -3,12 +3,15 @@ import { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
-
-
+// or less ideally
+import { Modal,Button } from 'react-bootstrap';
+import {DeleteConfirmation} from './CancelAlert'
 
 export default function YourTexts() {
     const { user } = useContext(UserContext)
     const [texts, setTexts] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
+
 
     useEffect(() => {
         if (user) {
@@ -33,20 +36,22 @@ export default function YourTexts() {
           });
     }
 
-    async function deleteText(textId){
-        try {
-            console.log(textId)
-            const { data } = await axios.post(
-                '/delete_text',{textId})
+     function deleteText(textId){
+        
+        setShowAlert(true)
+        // try {
+        //     console.log(textId)
+        //     const { data } = await axios.post(
+        //         '/delete_text',{textId})
 
-            if (data.error) {
-                toast.error(data.error)
-            } else {
-                toast.success('Text deleted successfully')
-            }
-        } catch (error) {
-            console.log(error)
-        }   
+        //     if (data.error) {
+        //         toast.error(data.error)
+        //     } else {
+        //         toast.success('Text deleted successfully')
+        //     }
+        // } catch (error) {
+        //     console.log(error)
+        // }   
     }
 
 
@@ -69,8 +74,10 @@ export default function YourTexts() {
                                 <h3 onClick={() => displayText(text)} >{text.title}</h3>
                                 <p>Author: {text.author_name} </p>
                                 <p>Published on: {text.published}</p>
-                                <button onClick={()=>deleteText(text._id)} >Delete</button>
+                                <button onClick={()=>setShowAlert(true)} >Delete</button>
                                 <button onClick={()=>modifyText(text)}>Modify</button>
+                                <DeleteConfirmation  message={'Are you sure you want to delete this text?'}/>
+                            
                             </div>
                         ))}
 

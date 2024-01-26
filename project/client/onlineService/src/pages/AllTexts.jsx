@@ -3,7 +3,8 @@ import { useLocation } from "react-router-dom";
 import { UserContext } from '../../context/userContext'
 import { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import {Card, Button}from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'; // Add this line
 
 
 export default function AllTexts() {
@@ -111,32 +112,61 @@ function addToFavourites(textId) {
         setFavourite(1-favourite)
 
   }
+  const truncateText = (text, maxChars) => {
+    if (text.length <= maxChars) {
+      return text;
+    } else {
+      return text.slice(0, maxChars) + '...';
+    }
+  };
 
 
   return (
     <div>
         <h1>All texts</h1>
-        {texts ? (
-            <div>
-                {texts.map((text) => (
-                    <div key={text._id}>
-                        <h3 onClick={() => displayText(text)} >{text.title}</h3>
-                        <p>Author: {text.author_name} </p>
-                        <p>Published on: {text.published}</p>
-                       {user ?(
-                        <div>
-                            <button id={`remove_${text._id}`} onClick={() => removeFromFavourites(text._id)} >Remove from favourites</button>
-                            <button id={`add_${text._id}`} onClick={() => addToFavourites(text._id)} >Add to favourites</button>
-                        </div>
-                        ):null
+        <div style={{ display: 'flex', flexDirection: 'column',flexWrap: 'wrap' }}>
+          {texts ? (
+              <div>
+                  {texts.map((text) => (
+                    
+                      // <div >
+                          <Card key={text._id} style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src="holder.js/100px180" />
+                            <Card.Body>
+                              <Card.Title onClick={() => displayText(text)}>{text.title}</Card.Title>
+                              <Card.Subtitle className="mb-2 text-muted" style={{ fontSize: '0.9em'}}>Author: {text.author_name}</Card.Subtitle>
+                              <Card.Subtitle className="mb-3 " style={{ fontSize: '0.7em', fontStyle: 'italic' }}>Published on: {text.published}</Card.Subtitle>
+                              <Card.Text>
+                                {truncateText(text.text,50)}
+                              </Card.Text>
+                                {user ?(
+                                  <div>
+                                      <Button id={`remove_${text._id}`} onClick={() => removeFromFavourites(text._id)} >Remove from favourites</Button>
+                                      <Button id={`add_${text._id}`} onClick={() => addToFavourites(text._id)} >Add to favourites</Button>
+                                  </div>
+                                  ):null
 
-                       }
-                        
-                   </div>
-                ))}
+                                }
+                            </Card.Body>
+                          </Card>
+                          /* <h3 onClick={() => displayText(text)} >{text.title}</h3>
+                          <p>Author: {text.author_name} </p>
+                          <p>Published on: {text.published}</p> */
+                        /* {user ?(
+                          <div>
+                              <button id={`remove_${text._id}`} onClick={() => removeFromFavourites(text._id)} >Remove from favourites</button>
+                              <button id={`add_${text._id}`} onClick={() => addToFavourites(text._id)} >Add to favourites</button>
+                          </div>
+                          ):null
 
-            </div>
-        ) : (null)}
+                        }
+                          
+                    </div> */
+                  ))}
+
+              </div>
+          ) : (null)}
+        </div>
     </div>
   )
 }
