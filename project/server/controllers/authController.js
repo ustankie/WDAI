@@ -70,7 +70,7 @@ const loginUser = async (req, res) => {
 
 const logoutUser = (req, res) =>{
     res.clearCookie('token'); 
-    console.log('logout');
+    // console.log('logout');
     res.json({ message: 'Logout successful' });
 }
 
@@ -79,11 +79,21 @@ const getProfile=(req,res)=>{
     if(token){
         jwt.verify(token,process.env.JWT_SECRET,{},(err,user)=>{
             if(err) throw err;
-            res.json(user)
+            const user2=user
+            User.findById(user.id).then((data)=>{
+                user2.favourites=data.favourites
+
+                res.json(user2)
+            })
+            
         })
     }else{
         res.json(null)
     }
+}
+const setUserProperties=(req,res)=>{
+    const user=req.query.user
+    console.log("set user")
 }
 
 module.exports = {
@@ -91,5 +101,6 @@ module.exports = {
     registerUser,
     loginUser,
     getProfile,
-    logoutUser
+    logoutUser,
+    setUserProperties
 }

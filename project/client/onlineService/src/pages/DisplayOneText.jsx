@@ -38,11 +38,11 @@ export default function DisplayOneText() {
     function addToFavourites(textId){
 
       if(user){
-        console.log(user)
+        // console.log(user)
 
           axios.post('/add_to_favourites', { user: user, textId: textId })
           .then((data)=>{
-            console.log("data: ",data.data)
+            // console.log("data: ",data.data)
             // setUser(data.data);
             setFavourite(true)
             if(data.data!=null){
@@ -63,21 +63,21 @@ export default function DisplayOneText() {
   function removeFromFavourites(textId){
 
     if(user){
-      console.log("user: ",user)
+      // console.log("user: ",user)
         axios.post('/remove_from_favourites', { user: user, textId: textId })
         .then((data)=>{
-          console.log("data: ",data.data)
+          // console.log("data: ",data.data)
           setFavourite(false)
           if(data.data!=null){
             setUser(data.data);
           }
           
           // window.location.reload(false)
-          console.log("dat:",data.data)
+          // console.log("dat:",data.data)
 
             
         }).then(
-          console.log("new user:",user)
+          // console.log("new user:",user)
         )
         .catch(error => {
             console.error('Error updating user:', error);
