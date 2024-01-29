@@ -1,6 +1,8 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css'
+
 import { Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import MyNavbar from './components/Navbar'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
@@ -24,24 +26,26 @@ function App() {
   
 
   return (
-    <UserContextProvider>
-      <Navbar />
-      <Toaster position='bottom-right' toastOptions={{ duration: 2000 }} />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/create_text' element={<CreateText />} />
-        <Route path='/your_texts' element={<YourTexts />} />
-        <Route path='/display_one_text' element={<DisplayOneText />} />
-        <Route path='/all_texts' element={<AllTexts />} />
-        <Route path='/users' element={<ViewUsers />} />
-        <Route path='/favourite_texts' element={<FavouriteTexts />} />
-        <Route path='/modify_text' element={<ModifyText />} />
+    <div className={`dark-mode`}>
+      <UserContextProvider className='provider'>
+        <MyNavbar />
+        <Toaster position='bottom-right' toastOptions={{ duration: 2000 }} />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/create_text' element={<CreateText />} />
+          <Route path='/your_texts' element={<YourTexts />} />
+          <Route path='/display_one_text' element={<DisplayOneText />} />
+          <Route path='/all_texts' element={<AllTexts />} />
+          <Route path='/users' element={<ViewUsers />} />
+          <Route path='/favourite_texts' element={<FavouriteTexts />} />
+          <Route path='/modify_text' element={<ModifyText />} />
 
-      </Routes>
-    </UserContextProvider>
+        </Routes>
+      </UserContextProvider>
+    </div>
   )
 }
 

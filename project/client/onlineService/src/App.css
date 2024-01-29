@@ -1,24 +1,182 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body, html, #root {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.dark-mode {
+  height:100%;
+  width:100%;
+  margin:0;
+  position:absolute;
+  /* background-color: #242424; */
+  /* color: #fff; */
+  align-items: center;
+  place-items: center;
+  justify-content: center;
+}
+
+.pageComponent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-photo{
+
+
+  width: 100%;
+  height: 50vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+
   text-align: center;
+  background-image:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://wallpapers.com/images/hd/fall-mountain-1yo2v3dldcz88e5i.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  /* background-attachment: fixed; */
+  overflow: hidden;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.pageCard{
+  margin: 30px;
+  padding-top:3rem;
+  padding-bottom:3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width:79rem;
+  background-color: rgb(97, 30, 30,50) !important;
 }
 
-@keyframes logo-spin {
+.navbar-parts{
+  display: flex;
+  flex-direction: row;
+  column-gap: 5px;
+}
+
+.textTitleCard{
+  text-decoration: underline;
+  cursor: pointer; 
+}
+
+.textTitleCard:hover {
+  color: #0056b3; 
+}
+
+.readMoreButton{
+  background-color: black;
+  border-color: black;
+  width: 8rem;
+  align-self: center;
+}
+
+.readMoreButton:hover{
+  background-color: rgb(97,30,30);
+  border-color: black;
+}
+
+.oneTextCardBody{
+  display:flex ;
+  width:100%;
+  flex-direction: column;
+  row-gap: 10px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  align-items: left;
+}
+
+.oneTextCardDetails{
+  align-items: left; 
+}
+
+.loginRegisterForm{
+  align-self: center;
+  row-gap: 20px;
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginRegisterForm input{
+  width: 20vw;
+}
+
+.loginRegisterForm button{
+  width: 10vw;
+  align-self: center;
+}
+
+.loginCard{
+  padding: 20px;
+  width: 25vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.registerCard{
+  padding: 20px;
+  width: 26vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginRegisterCardTitle{
+  font-weight: 900;
+  font-size: 2em;
+}
+
+.loginDiv{
+  align-self: center;
+  justify-self: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://cff2.earth.com/uploads/2022/03/16102119/Savanna-scaled.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.registerDiv{
+  align-self: center;
+  justify-self: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://services.meteored.com/img/article/la-voz-humana-un-sonido-mas-terrorifico-para-los-animales-que-el-rugido-de-un-leon-1696867317845_1280.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+/* .labelAndInput{
+  display: flex;
+  flex-direction: column;
+} */
+
+/* @keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -39,4 +197,5 @@
 
 .read-the-docs {
   color: #888;
-}
+} */
+

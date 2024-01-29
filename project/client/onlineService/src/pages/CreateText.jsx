@@ -53,6 +53,12 @@ export default function CreateText() {
             {/* <form onSubmit={createText}> */}
                 <Form>
                     <Form.Group className="mb-3" controlId="modifyForm.title">
+                    <Form.Control
+                        type='file'
+                        id='image-file'
+                        label='Choose File'
+                        />
+
                         <Form.Label>Title</Form.Label>
                         <Form.Control type="text" placeholder="Enter title..."  
                         value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
