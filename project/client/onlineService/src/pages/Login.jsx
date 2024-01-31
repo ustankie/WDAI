@@ -39,7 +39,7 @@ export default function Login() {
   return (
     <div className='loginDiv'>
       <Card onSubmit={loginUser} className='loginCard' >
-        <Card.Body>
+        <Card.Body className='cardBodyLogin'>
           <Card.Title className='loginRegisterCardTitle'>Login</Card.Title>
           <form className='loginRegisterForm'> 
             <div className='labelAndInput'>

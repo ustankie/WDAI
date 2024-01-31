@@ -3,12 +3,15 @@ import { UserContext } from '../../context/userContext'
 import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import { useNavigate,useLocation } from 'react-router-dom'
-import { Form,Button } from 'react-bootstrap';
+import { useNavigate, useLocation } from 'react-router-dom'
+import { Form, Button, Card } from 'react-bootstrap';
+import { useMediaQuery } from 'react-responsive';
 
 
 export default function ModifyText() {
     const { user } = useContext(UserContext)
+    const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
+    const rows = isSmallScreen ? 10 : 15;
     const navigate = useNavigate()
     const location = useLocation();
     const initialText = location.state.text;
@@ -32,7 +35,7 @@ export default function ModifyText() {
             edited: Date.now(),
         }));
 
-        const {_id, title, author_name, author, text, published, edited } = data
+        const { _id, title, author_name, author, text, published, edited } = data
 
 
         try {
@@ -52,25 +55,27 @@ export default function ModifyText() {
         }
     }
     return (
-        <div>
-            {/* <form onSubmit={saveText}> */}
-                <Form>
-                    <Form.Group className="mb-3" controlId="modifyForm.title">
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" placeholder="Enter title..."  
-                        value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
+        <div className='title-photo' id='createText'>
+            <Card className='pageCard' id='createText'>
+                <Card.Title>Modify Text</Card.Title>
+                <Form className='createTextForm'>
+                    <Form.Group className="mb-3">
+                        <div className='labelAndInput'>
+                            <Form.Label>Title</Form.Label>
+                            <Form.Control type="text" placeholder="Enter title..."
+                                value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
+                        </div>
                     </Form.Group>
-                    <Form.Group className="mb-4" controlId="modifyForm.text">
-                        <Form.Label>Text</Form.Label>
-                        <Form.Control as="textarea" rows={7} placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
+                    <Form.Group className="mb-4">
+                        <div className='labelAndInput'>
+                            <Form.Label>Text</Form.Label>
+                            <Form.Control as="textarea" className='textAreaCreateText' rows={rows} placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
+                        </div>
                     </Form.Group>
                 </Form>
-                {/* <label>Title</label>
-                <input type="text" placeholder='Enter title...' value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
-                <label>Text</label>
-                <input type="text" placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} /> */}
-                <Button type="submit" onClick={saveText} >Save</Button>
-            {/* </form> */}
+
+                <Button type="submit" onClick={saveText} className='saveButton'>Save</Button>
+            </Card>
         </div>
     )
 }

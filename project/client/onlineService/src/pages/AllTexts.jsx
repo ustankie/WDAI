@@ -4,6 +4,7 @@ import { UserContext } from '../../context/userContext'
 import { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {Card, Button,Image}from 'react-bootstrap'
+import {truncateText} from '../util/textUtil'
 
 
 export default function AllTexts() {
@@ -46,10 +47,7 @@ export default function AllTexts() {
             });
         }
     }, [user, texts]);
-    
-
-
-
+  
 
 
     function displayText (text) {      
@@ -111,19 +109,12 @@ function addToFavourites(textId) {
         setFavourite(1-favourite)
 
   }
-  const truncateText = (text, maxChars) => {
-    if (text.length <= maxChars) {
-      return text;
-    } else {
-      return text.slice(0, maxChars) + '...';
-    }
-  };
 
 
   return (
     <div className='pageComponent'>
       <div className='title-photo'>
-        <h1>All our texts</h1>
+        <h1>All texts on blog</h1>
         <p>Have fun reading!</p>
       </div>
         <Card className='pageCard'>
@@ -136,13 +127,11 @@ function addToFavourites(textId) {
                             <Card.Body className='oneTextCardBody'>
                               <div style={{ display: 'flex', flexDirection: 'column'}}>
                                 <div style={{ display: 'flex', justifyContent: 'center'}}>
-
                                   <Card.Title className='textTitleCard' onClick={() => displayText(text)}>{text.title} </Card.Title>
                                   {user ?(
                                       <div>
                                           <Image src="../../resources/full_star.png" id={`remove_${text._id}`} onClick={() => removeFromFavourites(text._id)} style={{width: '23px', marginLeft: '10px'}} />
                                           <Image src="../../resources/empty_star.png" id={`add_${text._id}`} onClick={() => addToFavourites(text._id)} style={{width: '23px', marginLeft: '10px'}} />
-                                          {/* <Button id={`add_${text._id}`} onClick={() => addToFavourites(text._id)} >Add to favourites</Button> */}
                                       </div>
                                       ):null
 

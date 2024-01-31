@@ -1,30 +1,46 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { UserContext } from '../../context/userContext'
 import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import { Form,Button } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
+import { useMediaQuery } from 'react-responsive';
 
 
 export default function CreateText() {
-    const { user } = useContext(UserContext)
+    const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
+    const rows = isSmallScreen ? 10 : 15;
+    const cardWidth = isSmallScreen ? 100 : 400;
+    const { user, setUser } = useContext(UserContext)
     const navigate = useNavigate()
 
     const [data, setData] = useState({
         title: '',
-        author_name: user ? user.name:null,
-        author: user ? user.id: null,
+        author_name: user ? user.name : null,
+        author: user ? user.id : null,
         text: '',
         published: new Date()
     });
+
+    useEffect(() => {
+        if (user)
+            setData((prevData) => ({
+                ...prevData,
+                author_name: user.name,
+                author: user.id,
+            }))
+    }, [user])
 
     const createText = async (e) => {
         e.preventDefault();
         setData((prevData) => ({
             ...prevData,
-            published: Date.now(),
+            author_name: user.name,
+            author: user._id,
+            published: Date.now()
         }));
+        console.log(user)
 
         const { title, author_name, author, text, published } = data
 
@@ -49,33 +65,31 @@ export default function CreateText() {
         }
     }
     return (
-        <div>
-            {/* <form onSubmit={createText}> */}
-                <Form>
-                    <Form.Group className="mb-3" controlId="modifyForm.title">
-                    <Form.Control
-                        type='file'
-                        id='image-file'
-                        label='Choose File'
-                        />
+        <div className='title-photo' id='createText'>
+            <Card className='pageCard' id='createText'>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'right', justifyContent: 'right' }}>
+                    <Card.Title>Create Text</Card.Title>
+                    <Form className='createTextForm' >
+                        <Form.Group className="mb-3" >
 
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" placeholder="Enter title..."  
-                        value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
-                    </Form.Group>
-                    <Form.Group className="mb-4" controlId="modifyForm.text">
-                        <Form.Label>Text</Form.Label>
-                        <Form.Control as="textarea" rows={7} placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
-                    </Form.Group>
-                </Form>
-                {/* <label>Title</label>
-                <input type="text" placeholder='Enter title...' value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
-                <label>Text</label>
-                <input type="text" placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
-                <button type="submit">Save</button> */}
-                <Button type="submit" onClick={createText} >Save</Button>
+                            <div className='labelAndInput'>
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control type="text" placeholder="Enter title..."
+                                    value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
+                            </div>
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <div className='labelAndInput'>
+                                <Form.Label>Text</Form.Label>
+                                <Form.Control className='textAreaCreateText' as="textarea" rows={rows} placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
+                            </div>
+                        </Form.Group>
+                    </Form>
 
-            {/* </form> */}
+                </div>
+                <Button type="submit" onClick={createText} className='saveButton' >Save</Button>
+
+            </Card>
         </div>
     )
 }

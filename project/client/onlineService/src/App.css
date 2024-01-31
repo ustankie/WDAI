@@ -1,4 +1,6 @@
-body, html, #root {
+body,
+html,
+#root {
   height: 100%;
   margin: 0;
   display: flex;
@@ -8,10 +10,10 @@ body, html, #root {
 
 
 .dark-mode {
-  height:100%;
-  width:100%;
-  margin:0;
-  position:absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  position: absolute;
   /* background-color: #242424; */
   /* color: #fff; */
   align-items: center;
@@ -19,14 +21,14 @@ body, html, #root {
   justify-content: center;
 }
 
-.pageComponent{
+.pageComponent {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.title-photo{
+.title-photo {
 
 
   width: 100%;
@@ -39,7 +41,7 @@ body, html, #root {
   color: white;
 
   text-align: center;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://wallpapers.com/images/hd/fall-mountain-1yo2v3dldcz88e5i.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://wallpapers.com/images/hd/fall-mountain-1yo2v3dldcz88e5i.jpg);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -47,46 +49,135 @@ body, html, #root {
   overflow: hidden;
 }
 
-.pageCard{
-  margin: 30px;
-  padding-top:3rem;
-  padding-bottom:3rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width:79rem;
-  background-color: rgb(97, 30, 30,50) !important;
+.title-photo#favouriteTexts {
+  height: 45vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://cdn.gencraft.com/prod/user/1fee7062-865c-4568-9081-758977abdf77/17575f69-dbdb-4f24-a6b0-f13852ba1d3a/image/image0_0.jpg?Expires=1706726939&Signature=dMn~otELg7QjMRyG8VeKoVmuWQhDDRGZ7bF-LEhzS~8jedyXRQe2ga4uxtuiZ~LjSOVOteTY8KOq-izPmhzIakQxNb2HAeR4FWIJ2dGhaN3K1Qd6rIRWV2hojskjinZVj3YZDPwvhcoMRWsqtCFf5ZzGw2BvQcffzAFPg5FIf7gjmobOaSskOhWJmRaGajl1gQpzk3TK0e7wkLuJFJnHmEHRczr3DAuXeYO0v7SIP28-Q6stoUzEVEAIzUEpdX9bTK-cEbVperqkmDeNCUtcS1KOuoM-lSu0uLvRNKy5rrdD9x6hkvmOk-paZgNe88eT9gpnrl9mgsfJcsPVhpru4A__&Key-Pair-Id=K3RDDB1TZ8BHT8);
+
 }
 
-.navbar-parts{
+.title-photo#yourTexts {
+  height: 50vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://i1.adis.ws/i/canon/future_of_forests_header_16x9_dc14bbe1e35040f79bf566eedaf5c8f7?$hero-header-half-16by9-dt$);
+
+}
+
+.title-photo#createText {
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://news.gsu.edu/files/2019/05/iStock-516189065.jpg);
+
+}
+
+.pageCard {
+  margin: 30px;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 79rem;
+  background-color: rgb(97, 30, 30, 50) !important;
+}
+
+.pageCard#favouriteTexts {
+  background-color: rgb(132, 160, 190) !important;
+
+}
+
+.pageCard#yourTexts {
+  background-color: rgb(36, 120, 73) !important;
+
+}
+
+.pageCard#createText {
+  background-color: white !important;
+  display: flex;
+  justify-content: right;
+  align-items: right;
+  align-self: right;
+  max-width: fit-content;
+}
+
+.createTextForm {
+  max-width: 850px;
+  align-self: left;
+  row-gap: 20px;
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+}
+
+
+.textAreaCreateText {
+  width: 850px;
+  max-width: 80vw;
+  max-height: 80vh;
+
+}
+
+
+.navbar-parts {
   display: flex;
   flex-direction: row;
   column-gap: 5px;
 }
 
-.textTitleCard{
+.textTitleCard {
   text-decoration: underline;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .textTitleCard:hover {
-  color: #0056b3; 
+  color: #0056b3;
 }
 
-.readMoreButton{
+.readMoreButton {
   background-color: black;
   border-color: black;
   width: 8rem;
   align-self: center;
 }
 
-.readMoreButton:hover{
-  background-color: rgb(97,30,30);
+.readMoreButton:hover {
+  background-color: rgb(97, 30, 30);
   border-color: black;
 }
 
-.oneTextCardBody{
-  display:flex ;
-  width:100%;
+.readMoreButtonFavouriteTexts {
+  background-color: black;
+  border-color: black;
+  width: 8rem;
+  align-self: center;
+}
+
+.readMoreButtonFavouriteTexts:hover {
+  background-color: rgb(52, 80, 97);
+  border-color: rgb(52, 80, 97);
+}
+
+.unlikeButtonFavouriteTexts {
+  background-color: grey;
+  border-color: grey;
+  width: 8rem;
+  align-self: center;
+}
+
+.unlikeButtonFavouriteTexts:hover {
+  background-color: rgb(88, 88, 88);
+  border-color: rgb(88, 88, 88);
+}
+
+.saveButton {
+  background-color: blue;
+  align-self: center;
+  width: 20vw;
+  align-content: right;
+  justify-content: center;
+}
+
+.oneTextCardBody {
+  display: flex;
+  width: 100%;
   flex-direction: column;
   row-gap: 10px;
   padding-left: 2rem;
@@ -94,11 +185,11 @@ body, html, #root {
   align-items: left;
 }
 
-.oneTextCardDetails{
-  align-items: left; 
+.oneTextCardDetails {
+  align-items: left;
 }
 
-.loginRegisterForm{
+.loginRegisterForm {
   align-self: center;
   row-gap: 20px;
   font-weight: 300;
@@ -106,25 +197,26 @@ body, html, #root {
   flex-direction: column;
 }
 
-.loginRegisterForm input{
+.loginRegisterForm input {
   width: 20vw;
 }
 
-.loginRegisterForm button{
+.loginRegisterForm button {
   width: 10vw;
   align-self: center;
 }
 
-.loginCard{
+.loginCard {
   padding: 20px;
-  width: 25vw;
-  height: 30vh;
+  width: fit-content;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.registerCard{
+
+.registerCard {
   padding: 20px;
   width: 26vw;
   display: flex;
@@ -133,12 +225,12 @@ body, html, #root {
   justify-content: center;
 }
 
-.loginRegisterCardTitle{
+.loginRegisterCardTitle {
   font-weight: 900;
   font-size: 2em;
 }
 
-.loginDiv{
+.loginDiv {
   align-self: center;
   justify-self: center;
   width: 100%;
@@ -148,14 +240,14 @@ body, html, #root {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://cff2.earth.com/uploads/2022/03/16102119/Savanna-scaled.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://cff2.earth.com/uploads/2022/03/16102119/Savanna-scaled.jpg);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   overflow: hidden;
 }
 
-.registerDiv{
+.registerDiv {
   align-self: center;
   justify-self: center;
   width: 100%;
@@ -165,16 +257,28 @@ body, html, #root {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(https://services.meteored.com/img/article/la-voz-humana-un-sonido-mas-terrorifico-para-los-animales-que-el-rugido-de-un-leon-1696867317845_1280.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://services.meteored.com/img/article/la-voz-humana-un-sonido-mas-terrorifico-para-los-animales-que-el-rugido-de-un-leon-1696867317845_1280.jpg);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   overflow: hidden;
 }
-/* .labelAndInput{
-  display: flex;
-  flex-direction: column;
-} */
+
+.cardBodyLogin {
+  justify-content: center;
+  align-items: center;
+}
+
+.labelAndInput {
+  width: 100%;
+  align-items: left;
+  justify-content: left;
+}
+
+.labelAndInput label {
+  justify-self: left;
+  align-self: left;
+}
 
 /* @keyframes logo-spin {
   from {
@@ -198,4 +302,3 @@ body, html, #root {
 .read-the-docs {
   color: #888;
 } */
-
