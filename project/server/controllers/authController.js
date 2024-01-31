@@ -1,6 +1,6 @@
 const User = require('../model/user')
 const { hashPassword, comparePassword } = require('../helpers/auth')
-const jwt =require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 const test = (req, res) => {
     res.json("test is working")
@@ -52,9 +52,9 @@ const loginUser = async (req, res) => {
 
         const match = await comparePassword(password, user.password)
         if (match) {
-            jwt.sign({email: user.email,id: user._id,name: user.name, user_type: user.user_type,favourites: user.favourites},process.env.JWT_SECRET,{},(err,token)=>{
-                if(err) throw err;
-                res.cookie('token',token).json(user)
+            jwt.sign({ email: user.email, id: user._id, name: user.name, user_type: user.user_type, favourites: user.favourites }, process.env.JWT_SECRET, {}, (err, token) => {
+                if (err) throw err;
+                res.cookie('token', token).json(user)
             })
         }
         if (!match) {
@@ -68,26 +68,26 @@ const loginUser = async (req, res) => {
     }
 }
 
-const logoutUser = (req, res) =>{
-    res.clearCookie('token'); 
+const logoutUser = (req, res) => {
+    res.clearCookie('token');
     // console.log('logout');
     res.json({ message: 'Logout successful' });
 }
 
-const getProfile=(req,res)=>{
-    const{token}=req.cookies
-    if(token){
-        jwt.verify(token,process.env.JWT_SECRET,{},(err,user)=>{
-            if(err) throw err;
-            const user2=user
-            User.findById(user.id).then((data)=>{
-                user2.favourites=data.favourites
+const getProfile = (req, res) => {
+    const { token } = req.cookies
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
+            if (err) throw err;
+            const user2 = user
+            User.findById(user.id).then((data) => {
+                user2.favourites = data.favourites
 
                 res.json(user2)
             })
-            
+
         })
-    }else{
+    } else {
         res.json(null)
     }
 }

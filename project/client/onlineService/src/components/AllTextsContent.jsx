@@ -11,7 +11,7 @@ export default function AllTextsContent({ len }) {
     const [favourite, setFavourite] = useState(null);
     const navigate = useNavigate()
 
-    
+
 
     useEffect(() => {
         axios.get('/all_texts')
@@ -34,10 +34,10 @@ export default function AllTextsContent({ len }) {
                 const removeText = document.getElementById(`remove_${textId}`);
                 const addText = document.getElementById(`add_${textId}`);
 
-                if (isFavourite && removeText) {
+                if (isFavourite && removeText && addText) {
                     removeText.style.display = 'block';
                     addText.style.display = 'none';
-                } else if (removeText) {
+                } else if (removeText && addText) {
                     removeText.style.display = 'none';
                     addText.style.display = 'block';
                 }
@@ -74,8 +74,10 @@ export default function AllTextsContent({ len }) {
         }
         const removeText = document.getElementById(`remove_${textId}`);
         const addText = document.getElementById(`add_${textId}`);
-        removeText.style.display = 'block';
-        addText.style.display = 'none';
+        if (removeText)
+            removeText.style.display = 'block';
+        if (addText)
+            addText.style.display = 'none';
         setFavourite(1 - favourite)
 
     }
@@ -111,7 +113,7 @@ export default function AllTextsContent({ len }) {
         <>
             {texts ? (
                 <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    {texts.map((text,index) => (!len || index<len) ?(
+                    {texts.map((text, index) => (!len || index < len) ? (
                         <Card key={text._id} style={{ width: '18rem', margin: '7px' }} >
                             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                             <Card.Body className='oneTextCardBody'>
@@ -140,7 +142,7 @@ export default function AllTextsContent({ len }) {
                             </Card.Body>
                         </Card>
 
-                    ):null)}
+                    ) : null)}
 
                 </div>
             ) : (null)}

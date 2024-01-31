@@ -12,10 +12,10 @@ export default function ModifyText() {
     const { user } = useContext(UserContext)
     const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
     const rows = isSmallScreen ? 10 : 15;
+    const formWidth = isSmallScreen ? '75vw' : '45vw'
     const navigate = useNavigate()
     const location = useLocation();
     const initialText = location.state.text;
-    // console.log(initialText)
 
     const [data, setData] = useState({
         _id: initialText._id,
@@ -26,7 +26,6 @@ export default function ModifyText() {
         published: initialText.published,
         edited: new Date()
     });
-    console.log(data)
 
     const saveText = async (e) => {
         e.preventDefault();
@@ -62,14 +61,15 @@ export default function ModifyText() {
                     <Form.Group className="mb-3">
                         <div className='labelAndInput'>
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" placeholder="Enter title..."
+                            <Form.Control type="text" placeholder="Enter title..." style={{ width: formWidth }}
                                 value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
                         </div>
                     </Form.Group>
                     <Form.Group className="mb-4">
                         <div className='labelAndInput'>
                             <Form.Label>Text</Form.Label>
-                            <Form.Control as="textarea" className='textAreaCreateText' rows={rows} placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
+                            <Form.Control as="textarea" className='textAreaCreateText' rows={rows} style={{ width: formWidth }}
+                                placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
                         </div>
                     </Form.Group>
                 </Form>

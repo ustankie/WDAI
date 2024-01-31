@@ -11,7 +11,7 @@ import { useMediaQuery } from 'react-responsive';
 export default function CreateText() {
     const isSmallScreen = useMediaQuery({ query: '(max-width: 768px)' });
     const rows = isSmallScreen ? 10 : 15;
-    const cardWidth = isSmallScreen ? 100 : 400;
+    const formWidth = isSmallScreen ? '75vw' : '45vw'
     const { user, setUser } = useContext(UserContext)
     const navigate = useNavigate()
 
@@ -40,13 +40,8 @@ export default function CreateText() {
             author: user._id,
             published: Date.now()
         }));
-        console.log(user)
 
         const { title, author_name, author, text, published } = data
-
-        console.log("creating text")
-        console.log(user.id)
-        console.log(data)
 
         try {
             const { data } = await axios.post(
@@ -74,14 +69,15 @@ export default function CreateText() {
 
                             <div className='labelAndInput'>
                                 <Form.Label>Title</Form.Label>
-                                <Form.Control type="text" placeholder="Enter title..."
+                                <Form.Control type="text" placeholder="Enter title..." style={{ width: formWidth }}
                                     value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
                             </div>
                         </Form.Group>
                         <Form.Group className="mb-4">
                             <div className='labelAndInput'>
                                 <Form.Label>Text</Form.Label>
-                                <Form.Control className='textAreaCreateText' as="textarea" rows={rows} placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
+                                <Form.Control className='textAreaCreateText' as="textarea" rows={rows} style={{ width: formWidth }}
+                                    placeholder='Enter text...' value={data.text} onChange={(e) => setData({ ...data, text: e.target.value })} />
                             </div>
                         </Form.Group>
                     </Form>

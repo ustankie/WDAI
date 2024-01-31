@@ -1,9 +1,9 @@
-const mongoose=require('mongoose')
-const {Schema,Types}=mongoose
+const mongoose = require('mongoose')
+const { Schema, Types } = mongoose
 
-const userSchema=new Schema({
+const userSchema = new Schema({
     name: String,
-    email:{
+    email: {
         type: String,
         unique: true,
         required: true
@@ -12,17 +12,17 @@ const userSchema=new Schema({
         type: String,
         required: true
     },
-    user_type:{
+    user_type: {
         type: String,
-        enum: ['admin','client','author'],
+        enum: ['admin', 'client', 'author'],
         default: 'client'
     },
-    favourites:{
+    favourites: {
         type: [{ type: Types.ObjectId, ref: 'Text' }],
         default: []
     }
 })
 
-const UserModel=mongoose.model('User',userSchema);
+const UserModel = mongoose.model('User', userSchema);
 
-module.exports=UserModel;
+module.exports = UserModel;

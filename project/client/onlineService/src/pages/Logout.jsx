@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-export default function LogoutUser(){
+export default function LogoutUser() {
   const navigate = useNavigate();
   const [data, setData] = useState({
     email: '',

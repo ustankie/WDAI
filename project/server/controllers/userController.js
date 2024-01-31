@@ -2,29 +2,29 @@
 const User = require('../model/user')
 
 
-const displayUsers=async (req, res) => {
+const displayUsers = async (req, res) => {
 
     try {
-        const userCollection=await User.find();
+        const userCollection = await User.find();
         if (!userCollection) {
             return res.json({
                 error: 'Error loading users'
             })
         }
-       
+
         res.json(userCollection);
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 }
 
-const updateUsers=async (req, res) => {
+const updateUsers = async (req, res) => {
     try {
-        const { user, newType } = req.body; 
-        const updatedUser=await User.updateOne(
+        const { user, newType } = req.body;
+        const updatedUser = await User.updateOne(
             { _id: user._id },
             { $set: { user_type: newType } },
-            { new: true } 
+            { new: true }
         )
         console.log(updatedUser)
         res.json(updatedUser)

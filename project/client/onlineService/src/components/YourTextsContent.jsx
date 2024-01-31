@@ -3,12 +3,12 @@ import { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
-// import { DeleteConfirmation } from './CancelAlert'
 import { Card, Button, Image } from 'react-bootstrap'
 import { truncateText } from '../util/textUtil'
 import NothingYet from '../components/NothingYet'
 
-export default function YourTextsContent({len}) {
+
+export default function YourTextsContent({ len }) {
     const { user, setUser } = useContext(UserContext)
     const [texts, setTexts] = useState(null);
     const [textDeleted, setTextDeleted] = useState(0);
@@ -30,18 +30,21 @@ export default function YourTextsContent({len}) {
 
 
     useEffect(() => {
+
         if (user && texts) {
             console.log("fav: ", user)
             texts.forEach((text) => {
                 const textId = text._id;
-                const isFavourite = user.favourites.includes(textId);
 
-                const removeText = document.getElementById(`remove_${textId}`);
-                const addText = document.getElementById(`add_${textId}`);
+                const isFavourite = user.favourites.includes(textId);
+                const removeText = document.getElementById(`your_remove_${textId}`);
+                const addText = document.getElementById(`your_add_${textId}`);
+                console.log(textId, isFavourite, removeText)
 
                 if (isFavourite && removeText) {
                     removeText.style.display = 'block';
                     addText.style.display = 'none';
+                    console.log(textId, isFavourite, addText)
                 } else if (removeText) {
                     removeText.style.display = 'none';
                     addText.style.display = 'block';
@@ -99,8 +102,8 @@ export default function YourTextsContent({len}) {
                     console.error('Error updating user:', error);
                 });
         }
-        const removeText = document.getElementById(`remove_${textId}`);
-        const addText = document.getElementById(`add_${textId}`);
+        const removeText = document.getElementById(`your_remove_${textId}`);
+        const addText = document.getElementById(`your_add_${textId}`);
         removeText.style.display = 'block';
         addText.style.display = 'none';
         setFavourite(1 - favourite)
@@ -116,18 +119,14 @@ export default function YourTextsContent({len}) {
                     if (data.data != null) {
                         setUser(data.data);
                     }
-
-
-
-
                 }).then(
             )
                 .catch(error => {
                     console.error('Error updating user:', error);
                 });
         }
-        const removeText = document.getElementById(`remove_${textId}`);
-        const addText = document.getElementById(`add_${textId}`);
+        const removeText = document.getElementById(`your_remove_${textId}`);
+        const addText = document.getElementById(`your_add_${textId}`);
         removeText.style.display = 'none';
         addText.style.display = 'block';
         setFavourite(1 - favourite)
@@ -145,47 +144,51 @@ export default function YourTextsContent({len}) {
 
     return (
         <>
+            {(texts && texts.length > 0) ? (
+                <>
+                    {texts ? (
+                        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            {texts.map((text, index) => (!len || index < len) ? (
+                                <Card key={text._id} style={{ width: '18rem', margin: '7px' }} >
+                                    <Card.Body className='oneTextCardBody'>
+                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                <Card.Title className='textTitleCard' onClick={() => displayText(text)}>{text.title} </Card.Title>
+                                                {user ? (
+                                                    <div>
+                                                        <Image src="../../resources/full_star.png" id={`your_remove_${text._id}`} onClick={() => removeFromFavourites(text._id)} style={{ width: '23px', marginLeft: '10px' }} />
+                                                        <Image src="../../resources/empty_star.png" id={`your_add_${text._id}`} onClick={() => addToFavourites(text._id)} style={{ width: '23px', marginLeft: '10px' }} />
+                                                    </div>
+                                                ) : null
 
-                        {texts ? (
-                            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-                                {texts.map((text,index) => (!len || index<len) ?(
-                                    <Card key={text._id} style={{ width: '18rem', margin: '7px' }} >
-                                        <Card.Body className='oneTextCardBody'>
-                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                                    <Card.Title className='textTitleCard' onClick={() => displayText(text)}>{text.title} </Card.Title>
-                                                    {user ? (
-                                                        <div>
-                                                            <Image src="../../resources/full_star.png" id={`remove_${text._id}`} onClick={() => removeFromFavourites(text._id)} style={{ width: '23px', marginLeft: '10px' }} />
-                                                            <Image src="../../resources/empty_star.png" id={`add_${text._id}`} onClick={() => addToFavourites(text._id)} style={{ width: '23px', marginLeft: '10px' }} />
-                                                        </div>
-                                                    ) : null
+                                                }
 
-                                                    }
-
-                                                </div>
-                                                <div className='oneTextCard'>
-                                                    <Card.Subtitle className="mb-2 text-muted" style={{ fontSize: '0.9em' }}>Author: {text.author_name}</Card.Subtitle>
-                                                    <Card.Subtitle className="mb-3 " style={{ fontSize: '0.7em', fontStyle: 'italic' }}>Published on: {new Date(text.published).toLocaleDateString()}</Card.Subtitle>
-
-                                                    <Card.Text>
-                                                        {truncateText(text.text, 50)}
-                                                    </Card.Text>
-                                                </div>
-                                                <div style={{ display: 'flex', flexDirection: 'row', columnGap: '5px' }}>
-                                                    <Button className='unlikeButtonFavouriteTexts' onClick={() => deleteText(text._id)} >Delete</Button>
-                                                    <Button className='readMoreButtonFavouriteTexts' onClick={() => modifyText(text)}>Modify</Button>
-                                                    {/* <DeleteConfirmation message={'Are you sure you want to delete this text?'} /> */}
-                                                </div>
                                             </div>
-                                        </Card.Body>
-                                    </Card>
-                                ):null)}
+                                            <div className='oneTextCard'>
+                                                <Card.Subtitle className="mb-2 text-muted" style={{ fontSize: '0.9em' }}>Author: {text.author_name}</Card.Subtitle>
+                                                <Card.Subtitle className="mb-3 " style={{ fontSize: '0.7em', fontStyle: 'italic' }}>Published on: {new Date(text.published).toLocaleDateString()}</Card.Subtitle>
 
-                            </div>
-                        ) : (null)}
+                                                <Card.Text>
+                                                    {truncateText(text.text, 50)}
+                                                </Card.Text>
+                                            </div>
+                                            <div style={{ display: 'flex', flexDirection: 'row', columnGap: '5px' }}>
+                                                <Button className='unlikeButtonFavouriteTexts' onClick={() => deleteText(text._id)} >Delete</Button>
+                                                <Button className='readMoreButtonFavouriteTexts' onClick={() => modifyText(text)}>Modify</Button>
+                                                {/* <DeleteConfirmation message={'Are you sure you want to delete this text?'} /> */}
+                                            </div>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            ) : null)}
 
-        </>
-    )
+                        </div>
+                    ) : (null)}
+                </>)
+                : (
+                    <NothingYet newLoc={'/create_text'} buttonText={'Create Text'} text={'Start over and create your first text!'} />
+                )}
+
+        </>)
 
 }

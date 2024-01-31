@@ -26,6 +26,7 @@ html,
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 
@@ -82,7 +83,7 @@ html,
 
 .title-photo#dashboard {
   height: 50vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://s.abcnews.com/images/Technology/whale-gty-jt-191219_hpMain.jpg );
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://www.nationsonline.org/gallery/Iceland/Kirkjufellsfoss-Iceland.jpg );
   margin-bottom: 30px;
 }
 
@@ -222,20 +223,21 @@ html,
   font-weight: 300;
   display: flex;
   flex-direction: column;
+  width: fit-content;
 }
 
 .loginRegisterForm input {
-  width: 20vw;
+  /* max-width: 500px; */
 }
 
 .loginRegisterForm button {
-  width: 10vw;
+  /* max-width: 200px; */
   align-self: center;
 }
 
 .loginCard {
   padding: 20px;
-  width: fit-content;
+  /* width: fit-content; */
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -245,7 +247,7 @@ html,
 
 .registerCard {
   padding: 20px;
-  width: 26vw;
+  /* width: fit-content; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -300,6 +302,8 @@ html,
   width: 100%;
   align-items: left;
   justify-content: left;
+  display: grid;
+  /* flex-direction: column; */
 }
 
 .labelAndInput label {
@@ -307,7 +311,7 @@ html,
   align-self: left;
 }
 
-.nothingYet{
+.nothingYet {
   margin: 50px;
   display: flex;
   flex-direction: column;
@@ -315,7 +319,7 @@ html,
   align-items: center;
 }
 
-.textContentOneText{
+.textContentOneText {
   justify-self: center;
   text-align: justify;
 }
@@ -329,11 +333,11 @@ html,
   justify-content: left;
 }
 
-.boldLabel{
+.boldLabel {
   font-weight: 1000;
 }
 
-#updateUserButton{
+#updateUserButton {
   align-self: left;
   justify-content: left;
   align-items: left;

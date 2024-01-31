@@ -1,7 +1,7 @@
 
 const Text = require('../model/texts')
 const User = require('../model/user')
-const jwt =require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 
 const createText = async (req, res) => {
@@ -59,11 +59,10 @@ const displayAllTexts = async (req, res) => {
     }
 }
 
-const deleteText = async (req, res) =>{
+const deleteText = async (req, res) => {
     const { textId } = req.body
     try {
-        console.log(textId)
-        const textRemoved = await Text.deleteOne({_id: textId});
+        const textRemoved = await Text.deleteOne({ _id: textId });
 
         res.json(textRemoved);
     } catch (err) {
@@ -71,9 +70,9 @@ const deleteText = async (req, res) =>{
     }
 }
 
-const modifyText=async(req,res)=>{
+const modifyText = async (req, res) => {
     try {
-        const {_id, title, author_name, author, text, published, edited } = req.body
+        const { _id, title, author_name, author, text, published, edited } = req.body
         if (!text) {
             return res.json({
                 error: 'Text content is required'
@@ -85,7 +84,7 @@ const modifyText=async(req,res)=>{
             })
         }
 
-        const textObject = await Text.findByIdAndUpdate(_id,{
+        const textObject = await Text.findByIdAndUpdate(_id, {
             title: title, text: text, edited: edited
         })
 
@@ -97,14 +96,14 @@ const modifyText=async(req,res)=>{
 
 const addToFavourites = async (req, res) => {
     const { user, textId } = req.body
-    if(!user){
+    if (!user) {
         return res.json(user)
     }
     try {
-        
-        if(user.favourites.includes(textId)){
+
+        if (user.favourites.includes(textId)) {
             return res.json(user)
-        }else{
+        } else {
             user.favourites.push(textId)
 
             const updatedUser = await User.findOneAndUpdate(
@@ -122,21 +121,21 @@ const addToFavourites = async (req, res) => {
 }
 const removeFromFavourites = async (req, res) => {
     const { user, textId } = req.body
-    if(!user){
+    if (!user) {
         return res.json(user)
     }
     try {
-        
-        if(!user.favourites.includes(textId)){
+
+        if (!user.favourites.includes(textId)) {
             return res.json(user)
-        }else{
+        } else {
 
-            user.favourites=user.favourites.filter(text=>text!==textId);
+            user.favourites = user.favourites.filter(text => text !== textId);
 
-            const updatedUser =await User.findOneAndUpdate(
+            const updatedUser = await User.findOneAndUpdate(
                 { _id: user.id },
-                {favourites: user.favourites},
-                {new:true}
+                { favourites: user.favourites },
+                { new: true }
             )
 
             return res.json(user)
@@ -147,11 +146,11 @@ const removeFromFavourites = async (req, res) => {
     }
 }
 
-const displayFavourites=async(req,res)=>{
+const displayFavourites = async (req, res) => {
     try {
         const favourites = req.query.favourites;
 
-        const textCollection = await Text.find({ _id: { $in: favourites }});
+        const textCollection = await Text.find({ _id: { $in: favourites } });
         if (!textCollection) {
             return res.json({
                 error: 'Error loading texts'
