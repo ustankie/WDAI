@@ -28,6 +28,7 @@ html,
   justify-content: center;
 }
 
+
 .title-photo {
 
 
@@ -67,6 +68,24 @@ html,
 
 }
 
+.title-photo#displayOneText {
+  height: 50vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://images.ireland.com/media/Images/ten-fun-facts-ni/9fa6bf9b332849948b8b86000ce674dc.jpg);
+
+}
+
+.title-photo#viewUsers {
+  height: 50vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://cdn.gencraft.com/prod/user/1fee7062-865c-4568-9081-758977abdf77/9fcfbeec-3a9f-4507-b944-1517142e7797/image/image1_0.jpg?Expires=1706793333&Signature=iae2yVk7Pe0FGAvlf6kdzvpBSmPv5ara1HHXBiJKsIzh4Kat5wYM0jzI~GwiQGMkhHi-vlRkv4cB3R9xHRUqqDRWgvrsrqJsB2Dv6b0UefTa67HXjFC1PdUGZni5Igk5RJYOk7z9QzmVpQvPgmIlY0OPYUSYrMtBLa9xwfPPQOGLBRx9CMHQ7Qbfk5~~SjKk43OlaZhmtKGFb7VBLilQLUbJTRjs4LL4iAClCh8z5X1-uKDIfvgt56h0TNKjHtCTljkOWzSPgE3FVDYVHNa7GS6tJmmwJoqgbM1fRHrnwlp9W9dphxx7h9HxaFgSnQkb8o0DTkgdkaFU0Z0bzccPkA__&Key-Pair-Id=K3RDDB1TZ8BHT8);
+  margin-bottom: 30px;
+}
+
+.title-photo#dashboard {
+  height: 50vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://s.abcnews.com/images/Technology/whale-gty-jt-191219_hpMain.jpg );
+  margin-bottom: 30px;
+}
+
 .pageCard {
   margin: 30px;
   padding-top: 3rem;
@@ -94,6 +113,14 @@ html,
   align-items: right;
   align-self: right;
   max-width: fit-content;
+}
+
+.pageCard#displayOneText {
+  background-color: white !important;
+  /* max-width: 50vw; */
+  padding: 50px;
+  align-items: left;
+  justify-content: center;
 }
 
 .createTextForm {
@@ -280,25 +307,35 @@ html,
   align-self: left;
 }
 
-/* @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nothingYet{
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.textContentOneText{
+  justify-self: center;
+  text-align: justify;
 }
 
-.card {
-  padding: 2em;
+.labelAndOutput {
+  width: 100%;
+  display: flex;
+  flex: row;
+  column-gap: 10px;
+  align-items: left;
+  justify-content: left;
 }
 
-.read-the-docs {
-  color: #888;
-} */
+.boldLabel{
+  font-weight: 1000;
+}
+
+#updateUserButton{
+  align-self: left;
+  justify-content: left;
+  align-items: left;
+  max-width: 200px;
+}

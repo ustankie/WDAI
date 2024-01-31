@@ -48,7 +48,7 @@ export default function ModifyText() {
             } else {
                 setData({})
                 toast.success('Text saved successfully')
-                navigate('/dashboard')
+                navigate('/your_texts')
             }
         } catch (error) {
             console.log(error)

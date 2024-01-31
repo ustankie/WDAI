@@ -58,7 +58,7 @@ export default function CreateText() {
             } else {
                 setData({})
                 toast.success('Text created successfully')
-                navigate('/dashboard')
+                navigate('/your_texts')
             }
         } catch (error) {
             console.log(error)

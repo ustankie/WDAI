@@ -4,6 +4,7 @@ import axios from 'axios'
 import { UserContext } from '../../context/userContext'
 import {Card, Button,Image}from 'react-bootstrap'
 import {truncateText} from '../util/textUtil'
+import NothingYet  from '../components/NothingYet'
 
 
 
@@ -57,7 +58,10 @@ export default function FavouriteTexts() {
             <h1>Favourite texts</h1>
             <p>Delights chosen by you</p>
       </div>
+      {(texts && texts.length>0) ?(
+        <>
         <Card className='pageCard' id='favouriteTexts' >
+
             {texts ? (
                 <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
                     {texts.map((text) => (
@@ -81,14 +85,17 @@ export default function FavouriteTexts() {
                                     <Button className='readMoreButtonFavouriteTexts' onClick={() => displayText(text)}>Read more</Button>
                                 </div>
                                 
-
                             </Card.Body>
                         </Card>
                     ))}
 
-                </div>
-            ) : (null)}
+                    </div>
+                    ) : (null)}
+                
         </Card>
+        </>):(
+            <NothingYet newLoc={'/all_texts'} buttonText='All Texts' text={'Find something for yourself!'}  />
+        )}
     </div>
   )
 }
